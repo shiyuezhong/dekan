@@ -1,0 +1,64 @@
+.myOrderDetail{ padding:0 12px; background-color:#fff;}
+.oddNumTime{ border-bottom:1px solid #ddd; font-size:12px; height:21px; line-height:21px; padding-top:14px;}
+.oddNum{ float:left;}
+.time{ float:right;}
+.myOrderD{ display:table; width:100%; padding:17px 0;}
+.myOrderImg, .myOrderName{ display:table-cell; vertical-align:top;}
+.myOrderImg{ width:63px;}
+.myOrderImg img{ border:1px solid #ddd; margin-left:3px}
+.myOrderName{ position:relative;}
+.myOrderName p{ padding:0 50px 0 10px;}
+.price_num{ text-align:right; position:absolute; right:0; top:0; width:50px; height:60px; font-weight:bold}
+.proTotalMerchandise{ border-top:1px solid #ddd; padding-top:3px; height:35px; line-height:35px; font-size:12px; text-align:right}
+.totalPrice{ font-size:15px; color:#e14546; padding-left:18px;}
+.shippingAddress, .payment, .logistics_detail{ margin-top:18px; padding:5px 12px; font-size:12px; background-color:#fff;}
+.shippingAddress i, .shipAddress i{ padding-left:20px;}
+.shipAddress{ line-height:17px;}
+.payment{ height:28px;}
+.btn_Returns, .btn_pays, .btn_proDetail, .btn_pay{ border:1px solid #5f646e; border-radius:5px; width:70px; height:26px; line-height:26px; text-align:center; float:right; font-size:15px; color:#222}
+.btn_pay{ background-color:#e14546; color:#fff; border:1px solid #e14546;}
+.whetherShipping{ font-size:15px;}
+.shipStyle{ margin-bottom:18px;}
+.shipStyle .oddNumTime{ padding-top:6px; height:29px; line-height:29px;}
+.shipStyle .proTotalMerchandise{ height:49px; text-align:left; padding-top:12px;}
+.shipStyle .prototalLeft{ float:left; line-height:20px;}
+.shipStyle .totalPrice{ padding-left:0;}
+.prototalRight{ float:right; padding-top:4px;}
+.prototalRight .btn_proDetail, .unpaid .btn_pay{ float:left; margin-left:12px;}
+.unpaid .myOrderD{ padding:8px 0;}
+.unpaid .oddNumTime{ margin-bottom:8px;}
+.unpaid .proTotalMerchandise{ margin-top:8px;}
+.showAllPro{ text-align:center;}
+.btn_showAll{ background:url(images/H5_downArrow_new.png) no-repeat right center; padding-right:21px; background-size:15px auto; display:inline-block}
+.logistics_detail h3{ border-bottom:1px solid #ddd; font-size:15px; line-height:40px; padding-top:3px;}
+.logistics_detail ul{ margin:18px 0 0 16px; border-left:1px solid #ddd; padding-left:30px; line-height:20px;}
+.logistics_detail ul li{ border-bottom:1px solid #ddd; position:relative; padding:13px 0;}
+.logistics_detail ul li:last-child{ border-bottom:none;}
+.show_cion{ position:absolute; left:-35px; top:20px; width:9px; height:9px; border-radius:9px; background-color:#dddddd;}
+.logistics_detail ul li.nowTheSituation{ font-size:14px; color:#25ae5f; line-height:20px; padding-top:0;}
+.logistics_detail ul li.nowTheSituation p{ padding-bottom:4px;}
+.tel{ color:#58a8f7}
+.shippingAddress .tel{ color:#666}
+.time_recipet{ font-size:13px;}
+.nowTheSituation .show_cion{ width:13px; height:13px; left:-42px; top:0px; position:absolute; border:4px solid #b9e5cc; background-color:#25ae5f; border-radius:13px; }
+.logistics_detail{ padding:10px 13px;}
+.showArea .myOrderD{ display:none;}
+.showAll .myOrderD{ display:table;}
+.btn_hiddenAll{ display:none;}
+.showAll .btn_showAll{ display:none;}
+.showAll .btn_hiddenAll{ background:url(images/H5_downArrow_top.png) no-repeat right center; background-size:15px auto; display:inline-block;  padding-right:21px;  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

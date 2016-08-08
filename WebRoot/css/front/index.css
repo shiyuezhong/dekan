@@ -1,0 +1,29 @@
+#Contenter{ padding:0 10px 60px;}
+h2{ font-size:15px; color:#222; height:29px; line-height:29px;}
+/* recommendedPackage */
+.rp_img{ overflow:hidden; height:146px;}
+.rP_block{ margin-bottom:8px; border:1px solid #e5e5e5}
+.rp_name_box{background-color:#fff; border:1px solid #ff495b}
+.rp_name{ display:table; width:100%; height:60px;}
+.rp_title{ display:table-cell;  padding:2px 0 2px 7px;}
+.rp_title h3, .com_title h3{ font-size:12px; line-height:20px; color:#1d1d1d;}
+.com_title h3{ line-height:14px; padding-top:5px;}
+.rp_title p, .com_title p{ font-size:10px; color:#707070; line-height:17px;}
+.rp_price{background-color:#ff495b;  width:120px; height:60px; text-align:center; display:table-cell; vertical-align:middle}
+.packagePrice{ color:#fff; font-size:16px;}
+.packagePrice cite{ padding-left:10px;}
+.pfPrice{ color:#fffc00; font-size:12px; text-align:right;}
+/* adaptationSeedlings */
+.adaptationSeedlings a:nth-child(2n){ float:right;}
+.com_block{ width:48%; float:left; border:1px solid #e5e5e5; margin-bottom:7px;}
+.com_price{ display:table-cell; background-color:#ff495b; width:39px; padding:0 10px; text-align:center; font-size:15px; color:#fff; vertical-align:middle}
+/* banner */
+.com_name{ border:1px solid #ff495b}
+.swiper-n1{ height:200px; width:100%;}
+.com_name{ background-color:#fff; position:relative;height:39px; overflow:hidden;}
+.com_title{ float:left; padding:2px 59px 2px 7px;}
+.com_price{ float:right; height:39px;line-height:39px; position:absolute; right:0; top:0; widht:59px;}
+#Banner{ margin-bottom:7px;}
+.com_img{ height:147px;}
+.freeget{text-align:center;display:block}
+.freeget02{ font-size:12px;line-height:18px; padding-top:2px; display:block}

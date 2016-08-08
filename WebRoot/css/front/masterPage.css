@@ -1,0 +1,154 @@
+* { margin: 0; outline: 0; padding: 0; font-size: 100%; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+a { text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.35); color:#666; -webkit-tap-highlight-color: rgba(255,255,255,0);-webkit-appearance: none; }
+html { height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+.clear{ clear:both;}
+body { margin: 0; padding: 0; width: 100%; height: 100%; color:#666; min-height: 100%; font-family:"\5FAE\8F6F\96C5\9ED1","\5b8b\4f53", Arial, Helvetica, sans-serif; font-size: 14px; line-height: 24px; -webkit-touch-callout: none; display: -webkit-box; -webkit-box-orient: vertical; -webkit-box-align: stretch; position: relative; background-color:#eeeeee; -webkit-tap-highlight-color: rgba(255,255,255,0);-webkit-appearance: none; }
+img { -ms-interpolation-mode: bicubic; vertical-align: middle; border: 0 none;max-width: 100%;width: auto\9; /* ie8 */}
+img:not([src*="/"]) { display: none; }
+table { border-collapse: collapse; border-spacing: 0; width: 100%; }
+th, td, caption { vertical-align: middle; }
+textarea { resize: none; border: 0; padding: 8px 0; border-radius: 0;}
+ul,li { list-style: none; margin:0; padding:0; }
+h1,h2,h3,h4,h5,h6 {margin:0; padding:0; font-weight:normal;font-family:"\5FAE\8F6F\96C5\9ED1","\5b8b\4f53", Arial, Helvetica, sans-serif;}
+.clr:after {content:""; display:block; height:0; clear:both; visibility:hidden;}
+.clr {*zoom:1;}
+i, cite{ font-style:normal;}
+#Contenter{ padding-bottom:50px;}
+/* img */
+.rp_img img, .com_img img{ float:left;}
+
+#Footer{ position:fixed; bottom:0; left:0; width:100%; height:44px; border-top:1px solid #b1b1b1; display:table;  background-color:rgba(255,255,255,0.85); z-index:100}
+.tab{ display:table-cell;}
+.tab li{ width:25%; float:left; font-size:12px; height:44px; line-height:44px; text-align:center}
+.tab li a{ display:block; border-right:1px solid #b1b1b1;  color: #5f646e;}
+.buyCar{ display:table-cell; position:relative; width:44px; height:44px; vertical-align:middle;}
+.buyCar img{ padding-left:8px;}
+.quantity{  width:18px; height:18px; line-height:18px; display:block; border-radius:18px; text-align:center; background-color:#f00; color:#fff; font-size:9px; position:absolute; right:1px; top:5px;}
+
+/* btn_buy */
+.showMoney{ padding-left:20px; font-size:15px;}
+.price{ font-size:18px;  color:#f00; }
+.rmb_f{ font-weight:bold; color:#f00;}
+.buyCar_price, .addToCar_buyNow, .total_price, .showMoney{ display:table-cell; vertical-align:middle}
+.addToCar_buyNow{ text-align:right;}
+.btn{ margin-right:10px; width:77px; height:36px; background-color:#e14546; text-align:center; line-height:36px; color:#fff; font-size:15px; display:inline-block; border-radius:3px; margin-left:15px;}
+
+/* buy Car */
+.footerBg{ position:absolute; left:0; top:0; width:100%; height:45px; z-index:10; display:table; background-color:rgba(255,255,255,0.85);}
+.layer_bottom{ position:fixed; z-index:1; left:0; top:0; width:100%; height:100%; display:none;background-color:rgba(0,0,0,0.6);}
+.layer_myCar{ height:0px; position:absolute; bottom:45px; left:0; width:100%; background-color:#fff;
+transform: translateY(332px); transition:linear 0.3s;
+-ms-transform: translateY(332px); -ms-transition:linear 0.3s;
+-o-transform: translateY(332px); -o-transition:linear 0.3s;
+-webkit-transform: translateY(332px); -webkit-transition:linear 0.3s;
+-moz-transform: translateY(332px); -moz-transition:linear 0.3s;
+z-index:10; overflow:hidden}
+.layerOD{ height:320px;
+transform: translateY(0); transition:linear 0.3s;
+-ms-transform: translateY(0); -ms-transition:linear 0.3s;
+-o-transform: translateY(0); -o-transition:linear 0.3s;
+-moz-transform: translateY(0); -moz-transition:linear 0.3s;
+-webkit-transform: translateY(0); -webkit-transition:linear 0.3s;
+}
+#cartList div:last-child{ border-bottom:none;}
+.layer_summary{ height:280px; overflow-y:auto;}
+.layer_myCar h4{ height: 39px; line-height:39px; border-bottom:1px solid #ddd; margin:0 12px; color:#222; font-size:15px;}
+.edit, .finish{ margin:7px 0; height:25px; width:42px; line-height:25px; border-left:1px solid #ddd; padding-left:10px; float:right}
+.layer_box{  margin:16px 12px 0; padding:0 3px 16px; border-bottom:1px solid #e5e5e5; }
+.car_detail{display:table; width:100%;}
+.d_img{ width:60px; height:60px;}
+.dImg_area{ width:58px; height:58px; border:1px solid #ddd;}
+.dnameNum{ margin-left:10px;}
+.d_name{ padding-bottom:12px; line-height:20px;}
+.d_price, .d_dDelete{ width:52px; font-size:15px;}
+.dPrice{ font-size:14px;}
+#Price_now{ font-size:16px;  vertical-align:bottom;}
+.textValueNum{ font-size:12px}
+.textValue{ font-size:14px; display:inline-block; width:26px;}
+.d_img, .d_detail, .d_price, .d_dDelete{ display:table-cell; vertical-align:middle}
+.d_dDelete, .finish{ display:none;}
+.dDelete{ background-color:#f00; color:#fff; font-size:12px; width:37px; height:37px; border-radius:37px; text-align:center; display:block; line-height:37px;}
+/* plus add */
+.textValueNum{ padding-right:20px; line-height:32px;}
+.textValueNum, .plusBtn, .addBtn{ float:left;}
+.btnselect, .grayBtn{ width:26px; height: 26px; background-color:#fff; border:1px solid #e5e5e5;}
+.plusBtn, .addBtn{ background-image: url(images/h5_plusIcon.png); background-repeat: no-repeat; background-size: 20px auto; margin-right:16px; background-position: center center;}
+a:active.plusBtn, a:active.addBtn{ border-color:#e14546; background:url(images/h5_plusIconAc.png) no-repeat center center #e14546; background-size: 20px auto;}
+a:active.addBtn{ background:url(images/h5_addIconAc.png) no-repeat center center #e14546; background-size: 20px auto;}
+.addBtn{ background-image: url(images/h5_addIcon.png)}
+/**/
+.layer{ position:fixed; width:100%; height:100%; z-index:1; background-color:rgba(0,0,0,0.3); left:0; top:0; display:none}
+.layer_cont{ width:94%; top:50%; left:50%; position:absolute; height:154px; margin:-77px 0 0 -47%; background-color:#fff; border-radius:5px; color:#3ab028; font-size:16px; text-align:center}
+.layer_cont p{ padding:40px 5px 29px;}
+.unbind_bind{ display:table; width:100%;}
+.unbind, .btn_bindNow{ display:table-cell;}
+.btn_bindNow{ width:140px; }
+.btn_bindNow i{margin-right:38px; width:100px; height:39px; line-height:39px; text-align:center; color:#fff; background-color:#3ab028; border-radius:5px; display:block}
+.tipSuccessDevice{ height:104px;}
+.footerBottom{ line-height:44px; position:fixed; bottom:0; left:0; width:100%; height:44px; border-top:1px solid #b1b1b1; background-color:#fafafa; z-index:100}
+.showMoney{ float:left;}
+.addToCar_toPay{ float:right }
+.indexFooter{
+	transform: translateY(0px); transition:linear 0.2s;
+	-ms-transform: translateY(0px); -ms-transition:linear 0.2s;
+	-o-transform: translateY(0px); -o-transition:linear 0.2s;
+	-moz-transform: translateY(0px); -moz-transition:linear 0.2s; 
+	-webkit-transform: translateY(0px); -webkit-transition:linear 0.2s; 
+}
+.buyCarLayerFooter{
+	transform: translateY(150px); transition:linear 0.2s; 
+	-ms-transform: translateY(150px); -ms-transition:linear 0.2s; 
+	-o-transform: translateY(150px); -o-transition:linear 0.2s;
+	-moz-transform: translateY(150px); -moz-transition:linear 0.2s;
+	-webkit-transform: translateY(150px); -webkit-transition:linear 0.2s; 
+	display:none
+}
+.hideIndexBottom{
+	transform: translateY(50px); transition:linear 0.2s; 
+	-ms-transform: translateY(50px); -ms-transition:linear 0.2s; 
+	-o-transform: translateY(50px); -o-transition:linear 0.2s; 
+	-moz-transform: translateY(50px); -moz-transition:linear 0.2s;
+	-webkit-transform: translateY(50px); -webkit-transition:linear 0.2s; 
+}
+.showBuyCarBottom{
+	transform: translateY(0px); transition:linear 0.2s;
+	-ms-transform: translateY(0px); -ms-transition:linear 0.2s;
+	-o-transform: translateY(0px); -o-transition:linear 0.2s;
+	-moz-transform: translateY(0px); -moz-transition:linear 0.2s;
+	-webkit-transform: translateY(0px); -webkit-transition:linear 0.2s; 
+	display:block;
+}
+/* shareFriend */
+.cont_top_payAfter{ padding-top:55px;}
+.cont_top_payAfter .down_app{ background-color:#f70708; font-size:18px; border:1px solid #f70708; color:#fff}
+.black_layer_payAfter, .black_layer_appStore{ position:absolute; left:0; top:0; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.8); display:none; text-align:center;z-index:105;}
+.arrow_top_img{ text-align:right; padding:10px 28px 10px 0; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.convention.default.parent.package" value="base-package" />
+    <constant name="struts.convention.result.path" value="/WEB-INF/views/template/" />
+	<constant name="struts.convention.classes.reload" value="false" />
+	<constant name="struts.devMode" value="false"/>
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.custom.i18n.resources" value="messages" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+    <constant name= "struts.multipart.maxSize" value="1073741824" ></constant> <!-- 默认最大附件大小1GB -->
+	<package name="base-package" namespace="/" extends="struts-default" >
+		<interceptors>
+			<interceptor name="adminAccessAuthorityInterceptor" class="com.dekan.mall.web.interceptor.AdminAccessAuthorityInterceptor" />
+			<interceptor name="dwzException" class="com.dekan.mall.web.interceptor.ParamExceptionMappingInterceptor"></interceptor>
+			<interceptor-stack name="bormall-stack">
+				<interceptor-ref name="dwzException"/>
+			 	<interceptor-ref name="adminAccessAuthorityInterceptor"/>
+				<interceptor-ref name="paramsPrepareParamsStack"/>
+				<interceptor-ref name="staticParams"/>
+				<interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                  <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="bormall-stack" />
+		
+		<global-results>
+			<result name="error" type="freemarker">/WEB-INF/views/template/common/error.ftl</result>
+            <result name="authCode" type="stream" />
+            <result name="timeout" type="freemarker">/WEB-INF/views/template/common/timeout.ftl</result>
+            <result name="unauth" type="freemarker">/WEB-INF/views/template/common/unauth.ftl</result>
+            <result name="jsonpg" type="freemarker">/WEB-INF/views/template/common/json.ftl</result>
+			<result name="operationDone" type="freemarker">/WEB-INF/views/template/common/${operationDone}.ftl</result>
+            <!-- struts 下载配置 -->
+            <result name="expxls" type="stream">
+                <param name="contentType">text/plain</param> 
+                <param name="inputName">inputStream</param> 
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param> 
+                <param name="bufferSize">4096</param> 
+            </result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="com.dekan.mall.exception.WebException" />
+		</global-exception-mappings>
+	</package>
+</struts>

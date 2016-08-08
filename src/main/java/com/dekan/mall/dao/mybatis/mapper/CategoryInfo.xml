@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dekan.mall.dao.mybatis.intf.CategoryInfoDao">
+	<!--返回map1-->
+	<resultMap id="CategoryInfoRM" type="TcategoryInfo">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="code" column="code"/>
+		<association property="parent" column="parent_id" javaType="TcategoryInfo"
+		     select="com.dekan.mall.dao.mybatis.intf.CategoryInfoDao.find"/>	
+		<collection property="subCategoryInfos" javaType="ArrayList" column="id" ofType="TcategoryInfo" 
+			 select="com.dekan.mall.dao.mybatis.intf.CategoryInfoDao.findListByParent"/>
+	</resultMap>
+
+	<!--1.查询  -->
+	<select id="find" parameterType="int" resultMap="CategoryInfoRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_category_info WHERE id = #{id}
+		]]>
+	</select>
+	
+	<!--2.插入-->
+	<insert id="insert" parameterType="TcategoryInfo"  keyProperty="id" useGeneratedKeys="true" flushCache="false">
+		<![CDATA[
+			insert into t_category_info 
+				(id,name,code,category_type,parent_id)
+					values
+				(#{id},#{name},#{code},#{categoryType.id},#{parent.id})
+		]]>
+	</insert>
+	
+	<!--3.修改-->
+	<update id="update" parameterType="TcategoryInfo" flushCache="false">
+		<![CDATA[
+			update t_category_info 
+				  set
+						name = #{name},
+						code = #{code}
+					where id = #{id}
+		]]>
+	</update>
+	
+	<!--4.删除-->
+	<delete id="delete" parameterType="TcategoryInfo" flushCache="false">
+		<![CDATA[
+			delete from t_category_info where id = #{id}
+		]]>
+	</delete>
+	
+	<!--5.查询总数量 -->
+	<select id="getTotalCount" resultType="long" useCache="false">
+		<![CDATA[
+			SELECT count("id") FROM t_category_info
+		]]>
+	</select>
+	
+	<!--6.查询总记录集 -->
+	<select id="findAllList" resultMap="CategoryInfoRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_category_info
+		]]>
+	</select>
+	
+	<!--7.依据条件查询记录集 -->
+	<select id="findListBy" parameterType="hashMap" resultMap="CategoryInfoRM" useCache="false">
+			SELECT id,name,code,category_type,parent_id FROM t_category_info  where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+		     <if test="parent != null">
+			  	and  parent_id = #{parent.id}  
+		     </if>
+		     <if test="categoryType != null">
+			  	and  category_type = #{categoryType.id}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--8.不分页 -->
+	<select id="findNopageListBy" parameterType="hashMap" resultMap="CategoryInfoRM" useCache="false">
+			SELECT id,name,code,category_type,parent_id FROM t_category_info  where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+			  	and  parent_id is null
+		     <if test="categoryType != null">
+			  	and  category_type = #{categoryType.id}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+	</select>
+	
+	<!--9.依据条件查询数量 -->
+	<select id="getCountBy" parameterType="hashMap" resultType="long" useCache="false">
+			SELECT count(`id`) FROM t_category_info where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+		     <if test="parent != null">
+			  	and  parent_id = #{parent.id}  
+		     </if>
+		     <if test="categoryType != null">
+			  	and  category_type = #{categoryType.id}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+	</select>
+	
+	<!--10.依据条件查询数量 -->
+	<select id="getNopageCountBy" parameterType="hashMap" resultType="long" useCache="false">
+			SELECT count(`id`) FROM t_category_info where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+		   	 	and  parent_id is null
+		     <if test="categoryType != null">
+			  	and  category_type = #{categoryType.id}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+	</select>
+	
+	<!--11.查询子集 -->
+	<select id="findListByParent" parameterType="TcategoryInfo" resultMap="CategoryInfoRM" useCache="false">
+			SELECT id,name,code FROM t_category_info where parent_id = #{id}  
+	</select>
+	
+	<!--12.根据name查询  -->
+	<select id="findByCode" parameterType="String" resultMap="CategoryInfoRM" useCache="false">
+		<![CDATA[
+			SELECT id,name,code FROM t_category_info WHERE code = #{code}
+		]]>
+	</select>
+	
+</mapper>

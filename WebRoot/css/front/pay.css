@@ -1,0 +1,45 @@
+body{ background-color:#eeeeee; position:relative}
+.footerBottom{ position:inherit}
+.detail_add{ padding:0 10px;}
+.fillDetailList{ padding-bottom:100px;}
+.fillDetailList li:last-child{ border-bottom:none;}
+.detail_add li{ padding:13px 14px; line-height:20px; border-bottom:1px solid #ccc;}
+.detail_add li.wrong{ border-bottom:1px solid #ff495b}
+.detail_add li input{ width:100%; font-size:13px; color:#3f3f3f; height:20px; line-height:20px; background:none; border:none; font-family:"\5FAE\8F6F\96C5\9ED1","\5b8b\4f53", Arial, Helvetica, sans-serif;}
+.fillTitle{ height:59px;padding:30px 0 40px; text-align:center}
+.fillTitle img{ padding-right:6px; vertical-align:middle}
+.fillTopPic{ padding-bottom:25px;}
+.select_area_li span{ background:url(images/gray_icon_n.png) no-repeat right center; background-size:8px 15px; display:block; color:#707476;}
+.n_payStyle{ position:relative;}
+.n_payStyleSpan{ display:block;}
+.n_psName{width:100%; float:left;padding-top:15px;}
+.n_psName label{ margin:0 34px 0 0; float:left; height:16px; line-height:16px;}
+.n_psName label:last-child{ margin-top:18px; clear:both}
+.n_psBtn{ margin-top:1px; background:url(images/noclickthis.png) no-repeat 0 0; width:16px; height:16px; display:block; background-size:16px auto; padding-right:7px; float:left}
+.clickThisPay .n_psBtn{ background:url(images/clickthis.png) no-repeat 0 0;background-size:16px auto;}
+.downArrowSpan .n_psName{ height:50px;
+transform: translateY(0); transition:linear 0.3s;
+-ms-transform: translateY(0); -ms-transition:linear 0.3s;
+-o-transform: translateY(0); -o-transition:linear 0.3s;
+-moz-transform: translateY(0); -moz-transition:linear 0.3s;
+-webkit-transform: translateY(0); -webkit-transition:linear 0.3s;
+}
+.select_area_li span {
+    background: url("images/gray_icon_n.png") no-repeat scroll right center / 8px 15px rgba(0, 0, 0, 0);
+    color: #707476;
+    display: block;
+}
+/* tip */
+.adaptationSeedlings{ position:fixed; bottom:0; left:0; width:94%; padding:10px 3%; height:224px;}
+.tip_paySuccess{ text-align:center; padding-top:46px; font-size:18px; color:#222222;}
+.tip_paySuccess img{ padding-right:15px; vertical-align:middle;}
+.btn_shareToFriend{ width:56%; margin:26px auto 0; text-align:center; height:40px; display:block; line-height:40px; background-color:#57ab57; color:#fff; font-size:16px; border-radius:5px;}
+.tip_failure .btn_shareToFriend{ margin-top:36px;}
+.tip_failure{ position:absolute; left:50%; width:100%; top:40%; height:152px; margin:-76px 0 0 -50%;}
+/* addDeviece */
+.btn_submitDevice{ width:90%; height:42px; line-height:42px; font-size:16px; color:#fff; display:block; margin:0 auto; background-color:#57ab57; margin-top:20px; text-align:center; border-radius:5px;}
+.tipColor{ color:#707070;font-size:10px; position:absolute; bottom:0; left:0; padding:10px;}
+.btn_nowBin{ margin-top:60px; background-color:#ff495b; border-radius:5px; height:40px; line-height:40px; text-align:center; color:#fff; font-size:16px; display:block; width:80%; margin:60px auto 0;}
+@media screen and (max-height:500px){
+	.tipColor{ position:inherit; padding-top:15px;}
+}

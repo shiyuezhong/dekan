@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dekan.mall.dao.mybatis.intf.PurviewDao">
+	<!--返回map1-->
+	<resultMap id="PurviewRM" type="TpurviewInfo">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="code" column="code"/>
+		<result property="type" column="type"/>
+		<result property="linkurl" column="link_url"/>
+		<result property="sortNo" column="sort_no"/>
+		<result property="level" column="level"/>
+		<result property="createDate" column="create_date"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="createOperator" column="create_operator"/>
+		<result property="modifyOperator" column="modify_operator"/>	
+		<association property="parent" column="parent_id" javaType="TpurviewInfo"
+			select="com.dekan.mall.dao.mybatis.intf.PurviewDao.find"/>	
+		<collection property="subPurviews" javaType="ArrayList" column="id" ofType="TpurviewInfo" 
+			select="com.dekan.mall.dao.mybatis.intf.PurviewDao.findListByParent"/>
+	</resultMap>
+
+	<!--1.查询  -->
+	<select id="find" parameterType="int" resultMap="PurviewRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_purview_info WHERE id = #{id}
+		]]>
+	</select>
+	
+	<!--2.插入-->
+	<insert id="insert" parameterType="TpurviewInfo"  keyProperty="id" useGeneratedKeys="true" flushCache="false">
+		<!-- <selectKey resultType="int" keyProperty="id" order="AFTER" >
+         	SELECT LAST_INSERT_ID()
+        </selectKey>  -->
+		<![CDATA[
+			insert into t_purview_info 
+				(id,name,code,link_url,sort_no,level,type,parent_id,
+				create_date,modify_date,create_operator,modify_operator)
+					values
+				(#{id},#{name},#{code},#{linkurl},#{sortNo},#{level},#{type},#{parent.id},
+				#{createDate},#{modifyDate},#{createOperator},#{modifyOperator})
+		]]>
+	</insert>
+	
+	<!--3.修改-->
+	<update id="update" parameterType="TpurviewInfo" flushCache="false">
+		<![CDATA[
+			update t_purview_info 
+				  set
+						name = #{name},
+						code = #{code},
+						link_url = #{linkurl},
+						sort_no = #{sortNo},
+						level = #{level},
+						type = #{type},
+						modify_date = #{modifyDate},
+						modify_operator = #{modifyOperator}
+					where id = #{id}
+		]]>
+	</update>
+	
+	<!--4.删除-->
+	<delete id="delete" parameterType="TpurviewInfo" flushCache="false">
+		<![CDATA[
+			delete from t_purview_info where id = #{id}
+		]]>
+	</delete>
+	
+	<!--5.查询总数量 -->
+	<select id="getTotalCount" resultType="long" useCache="false">
+		<![CDATA[
+			SELECT count("id") FROM t_purview_info
+		]]>
+	</select>
+	
+	<!--6.查询总记录集 -->
+	<select id="findAllList" resultMap="PurviewRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_purview_info
+		]]>
+	</select>
+	
+	<!--7.依据条件查询记录集 -->
+	<select id="findListBy" parameterType="hashMap" resultMap="PurviewRM" useCache="false">
+			SELECT * FROM t_purview_info  where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+		     <if test="parent != null">
+			  	and  parent_id = #{parent.id}  
+		     </if>
+		     <if test="level != null">
+			    and  level = #{level}   
+		     </if>
+		     <if test="type != null">
+			    and  type = #{type}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--8.依据条件查询数量 -->
+	<select id="getCountBy" parameterType="hashMap" resultType="long" useCache="false">
+			SELECT count(`id`) FROM t_purview_info where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+		     <if test="parent != null">
+			  	and  parent_id = #{parent.id}  
+		     </if>
+		     <if test="level != null">
+			    and  level = #{level}   
+		     </if>
+		     <if test="type != null">
+			    and  type = #{type}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--9.查询子集 -->
+	<select id="findListByParent" parameterType="TpurviewInfo" resultMap="PurviewRM" useCache="false">
+			SELECT * FROM t_purview_info where parent_id = #{id} order by sort_no desc
+	</select>
+	
+	<!--11.查询主菜单 -->
+	<select id="findMenuRoot" parameterType="int" resultMap="PurviewRM" useCache="false">
+			select * from t_user_purview_prop up left JOIN  t_purview_info pi on  pi.id = up.purview_id where pi.type = 1 and pi.parent_id is null
+			and up.user_id = #{userId} order by pi.sort_no desc
+	</select>
+	
+	<!--12.查询子菜单 -->
+	<select id="findMenuChild" parameterType="hashMap" resultMap="PurviewRM" useCache="false">
+		    select * from t_user_purview_prop up left JOIN  t_purview_info pi on  pi.id = up.purview_id where pi.type = 1 and pi.parent_id = #{id}
+			and up.user_id = #{userId} order by pi.sort_no desc
+	</select>
+	
+	<!--13.查询功能权限 -->
+	<select id="findFunction" parameterType="int" resultMap="PurviewRM" useCache="false">
+			select * from t_user_purview_prop up left JOIN  t_purview_info pi on  pi.id = up.purview_id where pi.type = 2 
+			and up.user_id = #{userId} order by pi.sort_no desc
+	</select>
+	
+	<!--14.依据条件查询记录集 -->
+	<select id="findMenuListByParent" parameterType="TpurviewInfo" resultMap="PurviewRM" useCache="false">
+			SELECT * FROM t_purview_info where parent_id = #{id} and type = 1
+	</select>
+		
+	<!--15.插入-->
+	<insert id="saveUserPurviewProp" parameterType="hashMap"  keyProperty="id" useGeneratedKeys="true" flushCache="false">
+		<!-- <selectKey resultType="int" keyProperty="id" order="AFTER" >
+         	SELECT LAST_INSERT_ID()
+        </selectKey>  -->
+		<![CDATA[
+			insert into t_user_purview_prop
+				(user_id,purview_id)
+					values
+				(#{user.id},#{purview.id})
+		]]>
+	</insert>
+	
+</mapper>

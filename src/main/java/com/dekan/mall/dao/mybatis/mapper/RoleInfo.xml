@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dekan.mall.dao.mybatis.intf.RoleDao">
+	<!--返回map1-->
+	<resultMap id="RoleRM" type="TroleInfo">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="code" column="code"/>
+		<result property="isSystem" column="is_system"
+				typeHandler="EnumOrdinalTypeHandler" javaType="Ebool"/>
+		<result property="isDelete" column="is_delete"
+				typeHandler="EnumOrdinalTypeHandler" javaType="Ebool"/>
+		<result property="status" column="status"
+				typeHandler="EnumOrdinalTypeHandler" javaType="Estatus"/>
+		<result property="description" column="description"/>
+		<result property="createDate" column="create_date"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="createOperator" column="create_operator"/>
+		<result property="modifyOperator" column="modify_operator"/>	
+	</resultMap>
+
+	<!--1.查询  -->
+	<select id="find" parameterType="int" resultMap="RoleRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_role_info WHERE id = #{id}
+		]]>
+	</select>
+	
+	<!--2.插入-->
+	<insert id="insert" parameterType="TroleInfo"  keyProperty="id" useGeneratedKeys="true" flushCache="false">
+		<![CDATA[
+			insert into t_role_info 
+				(id,name,code,is_system,is_delete,status,description,
+				create_date,modify_date,create_operator,modify_operator)
+					values
+				(#{id},#{name},#{code},
+				#{isSystem,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				#{isDelete,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				#{status,javaType=Estatus,typeHandler=EnumOrdinalTypeHandler},
+				#{description},
+				#{createDate},#{modifyDate},#{createOperator},#{modifyOperator})
+		]]>
+	</insert>
+	
+	<!--3.修改-->
+	<update id="update" parameterType="TroleInfo" flushCache="false">
+		<![CDATA[
+			update t_role_info 
+				  set
+						name = #{name},
+						code = #{code},
+						is_system = #{isSystem,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+						is_delete = #{isDelete,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+						status = #{status,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+						description = #{description},
+						modify_date = #{modifyDate},
+						modify_operator = #{modifyOperator}
+					where id = #{id}
+		]]>
+	</update>
+	
+	<!--4.删除-->
+	<delete id="delete" parameterType="TroleInfo" flushCache="false">
+		<![CDATA[
+			delete from t_role_info where id = #{id}
+		]]>
+	</delete>
+	
+	<!--5.查询总数量 -->
+	<select id="getTotalCount" resultType="long" useCache="false">
+		<![CDATA[
+			SELECT count("id") FROM t_role_info
+		]]>
+	</select>
+	
+	<!--6.查询总记录集 -->
+	<select id="findAllList" resultMap="RoleRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_role_info
+		]]>
+	</select>
+	
+	<!--7.依据条件查询记录集 -->
+	<select id="findListBy" parameterType="hashMap" resultMap="RoleRM" useCache="false">
+			SELECT * FROM t_role_info  where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--8.依据条件查询数量 -->
+	<select id="getCountBy" parameterType="hashMap" resultType="long" useCache="false">
+			SELECT count(`id`) FROM t_role_info  where 1=1
+			 <if test="name != null">
+			  	and  name like "%"#{name}"%"  
+		     </if>
+		     <if test="code != null">
+			  	and  code = #{code}  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--9.查询记录集 -->
+	<select id="findSystemList" resultMap="RoleRM" useCache="true">
+		<![CDATA[
+			SELECT * FROM t_role_info where is_system = 1
+		]]>
+	</select>
+	
+	<!--10.插入管理员角色关联关系-->
+	<insert id="saveAdminUserRolePorp" parameterType="hashMap"  keyProperty="id" useGeneratedKeys="true" flushCache="false">
+		<![CDATA[
+			insert into t_user_role_porp
+				(role_id,user_id)
+					values
+				(#{role.id},#{user.id})
+		]]>
+	</insert>
+	
+	<!--11.根据name查询  -->
+	<select id="findByName" parameterType="String" resultMap="RoleRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_role_info WHERE name = #{name}
+		]]>
+	</select>
+	
+</mapper>

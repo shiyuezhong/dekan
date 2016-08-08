@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dekan.mall.dao.mybatis.intf.AdminUserDao">
+	<!--返回map1-->
+	<resultMap id="AdminUserRM" type="TadminUser">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="userName" column="user_name"/>
+		<result property="userSn" column="user_sn"/>
+		<result property="password" column="password"/>
+		<result property="mobile" column="mobile"/>
+		<result property="email" column="email"/>
+		<result property="isAccountEnabled" column="is_account_enabled"
+				typeHandler="EnumOrdinalTypeHandler" javaType="Ebool"/>
+		<result property="isAccountLocked" column="is_account_locked"
+				typeHandler="EnumOrdinalTypeHandler" javaType="Ebool"/>
+		<result property="isOnline" column="is_login"
+				typeHandler="EnumOrdinalTypeHandler" javaType="Ebool"/>
+		<result property="loginFailureCount" column="login_failure_count"/>
+		<result property="lockedDate" column="locked_date"/>
+		<result property="lastLoginIp" column="last_login_ip"/>
+		<result property="lastLoginDate" column="last_login_date"/>	
+		<result property="isSystem" column="is_system"
+				typeHandler="EnumOrdinalTypeHandler" javaType="Ebool"/>	
+		<result property="createDate" column="create_date"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="createOperator" column="create_operator"/>
+		<result property="modifyOperator" column="modify_operator"/>	
+		<association property="userRoleProp" column="id" javaType="TadminRoleProp"
+				select="com.dekan.mall.dao.mybatis.intf.AdminRolePropDao.findByAdminUserId"/>
+	</resultMap>
+
+	<!--1.查询  -->
+	<select id="find" parameterType="int" resultMap="AdminUserRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_admin_user_info WHERE id = #{id} 
+		]]>
+	</select>
+	
+	<!--2.插入-->
+	<insert id="insert" parameterType="TadminUser"  keyProperty="id" useGeneratedKeys="true" flushCache="false">
+		<!-- <selectKey resultType="int" keyProperty="id" order="AFTER" >
+         	SELECT LAST_INSERT_ID()
+        </selectKey>  -->
+		<![CDATA[
+			insert into t_admin_user_info 
+				(is_login,name,user_sn,user_name,password,mobile,email,is_account_enabled,is_account_locked,login_failure_count,
+				locked_date,last_login_ip,last_login_date,is_system,create_date,modify_date,create_operator,modify_operator)
+					values
+				(#{isOnline,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				#{name},#{userSn},#{userName},#{password},#{mobile},#{email},
+				#{isAccountEnabled,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				#{isAccountLocked,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				#{loginFailureCount},#{lockedDate},#{lastLoginIp},#{lastLoginDate},
+				#{isSystem,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				#{createDate},#{modifyDate},#{createOperator},#{modifyOperator});
+		]]>
+	</insert>
+	
+	<!--3.修改-->
+	<update id="update" parameterType="TadminUser" flushCache="false">
+		<![CDATA[
+			update t_admin_user_info 
+				  set
+						name = #{name},
+						user_sn = #{userSn},
+						user_name = #{userName},
+						password = #{password},
+						mobile = #{mobile},
+						email = #{email},
+						locked_date = #{lockedDate},
+						login_failure_count = #{loginFailureCount},
+						last_login_ip = #{lastLoginIp},
+						last_login_date = #{lastLoginDate},
+						is_account_enabled = #{isAccountEnabled,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				        is_account_locked = #{isAccountLocked,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+				        is_login = #{isOnline,javaType=Ebool,typeHandler=EnumOrdinalTypeHandler},
+						modify_date = #{modifyDate},
+						modify_operator = #{modifyOperator}
+					where id = #{id}
+		]]>
+	</update>
+	
+	<!--4.删除-->
+	<delete id="delete" parameterType="TadminUser" flushCache="false">
+		<![CDATA[
+			delete from t_admin_user_info where id = #{id}
+		]]>
+	</delete>
+	
+	<!--5.查询总数量 -->
+	<select id="getTotalCount" resultType="long" useCache="false">
+		<![CDATA[
+			SELECT count("id") FROM t_admin_user_info  
+		]]>
+	</select>
+	
+	<!--6.查询总记录集 -->
+	<select id="findAllList" resultMap="AdminUserRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_admin_user_info   
+		]]>
+	</select>
+	
+	<!--7.依据条件查询记录集 -->
+	<select id="findListBy" parameterType="hashMap" resultMap="AdminUserRM" useCache="false">
+			 SELECT * from t_admin_user_info tu LEFT JOIN t_user_role_prop tr
+			 on tu.id = tr.user_id where  1=1 
+	         <if test="roleId != null">
+			    and tr.role_id = #{roleId}
+		     </if>
+		     <if test="name != null">
+			    and (tu.name like "%"#{name}"%" or tu.user_name like "%"#{name}"%") 
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--8.依据条件查询数量 -->
+	<select id="getCountBy" parameterType="hashMap" resultType="long" useCache="false">
+			 SELECT count(`id`) from t_admin_user_info tu LEFT JOIN t_user_role_prop tr
+			 on tu.id = tr.user_id where  1=1 
+	         <if test="roleId != null">
+			    and tr.role_id = #{roleId}
+		     </if>
+		     <if test="name != null">
+			    and (tu.name like "%"#{name}"%" or tu.user_name like "%"#{name}"%") 
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--9.查询  -->
+	<select id="findByUserName" parameterType="String" resultMap="AdminUserRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_admin_user_info WHERE user_name = #{userName}
+				LIMIT 0 ,1
+		]]>
+	</select>
+	
+	<!--10.修复数据  -->
+	<update id="repair" parameterType="TadminUser" flushCache="false">
+		<![CDATA[
+			update t_admin_user_info set is_login = 0 ,login_failure_count  = 0 ,is_account_locked = 0
+		]]>
+	</update>
+	
+</mapper>

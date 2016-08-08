@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN" "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+<urlrewrite>
+	
+	<rule>
+			<note>地址重定向跳转</note>
+			<from>^/r_u/(\w+).htm</from>
+			<to type="forward">/redirect/url/to_$1.ac</to>
+	</rule>
+	
+</urlrewrite>

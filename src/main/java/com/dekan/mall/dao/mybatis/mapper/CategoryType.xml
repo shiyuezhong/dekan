@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dekan.mall.dao.mybatis.intf.CategoryTypeDao">
+	<!--返回map1-->
+	<resultMap id="CategoryTypeRM" type="TcategoryType">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="description" column="description"/>
+	</resultMap>
+
+	<!--1.查询  -->
+	<select id="find" parameterType="int" resultMap="CategoryTypeRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_category_type WHERE id = #{id}
+		]]>
+	</select>
+	
+	<!--2.插入-->
+	<insert id="insert" parameterType="TcategoryType"  keyProperty="id" useGeneratedKeys="true" flushCache="false">
+		<![CDATA[
+			insert into t_category_type 
+				(id,name,description)
+					values
+				(#{id},#{name}, 
+				#{description})
+		]]>
+	</insert>
+	
+	<!--3.修改-->
+	<update id="update" parameterType="TcategoryType" flushCache="false">
+		<![CDATA[
+			update t_category_type 
+				  set
+						name = #{name},
+						description = #{description} 
+					where id = #{id}
+		]]>
+	</update>
+	
+	<!--4.删除-->
+	<delete id="delete" parameterType="TcategoryType" flushCache="false">
+		<![CDATA[
+			delete from t_category_type where id = #{id}
+		]]>
+	</delete>
+	
+	<!--5.查询总数量 -->
+	<select id="getTotalCount" resultType="long" useCache="false">
+		<![CDATA[
+			SELECT count("id") FROM t_category_type
+		]]>
+	</select>
+	
+	<!--6.查询总记录集 -->
+	<select id="findAllList" resultMap="CategoryTypeRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_category_type
+		]]>
+	</select>
+	
+	<!--7.依据条件查询记录集 -->
+	<select id="findListBy" parameterType="hashMap" resultMap="CategoryTypeRM" useCache="false">
+			SELECT * FROM t_category_type  where 1=1
+			 <if test="name != null">
+			    and  name like "%"#{name}"%"  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--8.依据条件查询数量 -->
+	<select id="getCountBy" parameterType="hashMap" resultType="long" useCache="false">
+			SELECT count(`id`) FROM t_category_type  where 1=1
+			 <if test="name != null">
+			  	and  name like "%"#{name}"%"  
+		     </if>
+			 <if test="orderBy != null and order != null">
+			 	ORDER BY ${orderBy} ${order}
+			 </if>
+			 <if test="firstIndex != null and pageSize != null">
+			 	LIMIT #{firstIndex} ,#{pageSize}
+			 </if>
+	</select>
+	
+	<!--9.根据name查询  -->
+	<select id="findByName" parameterType="String" resultMap="CategoryTypeRM" useCache="false">
+		<![CDATA[
+			SELECT * FROM t_category_type WHERE name = #{name}
+		]]>
+	</select>
+	
+</mapper>
